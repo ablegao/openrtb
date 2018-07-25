@@ -1,7 +1,5 @@
 package openrtb
 
-import "encoding/json"
-
 // Private Marketplace Object
 type Pmp struct {
 	Private int       `json:"private_auction,omitempty"`
@@ -24,24 +22,6 @@ type Deal struct {
 }
 
 type jsonDeal Deal
-
-// MarshalJSON custom marshalling with normalization
-func (d *Deal) MarshalJSON() ([]byte, error) {
-	d.normalize()
-	return json.Marshal((*jsonDeal)(d))
-}
-
-// UnmarshalJSON custom unmarshalling with normalization
-func (d *Deal) UnmarshalJSON(data []byte) error {
-	var h jsonDeal
-	if err := json.Unmarshal(data, &h); err != nil {
-		return err
-	}
-
-	*d = (Deal)(h)
-	d.normalize()
-	return nil
-}
 
 func (d *Deal) normalize() {
 	if d.AuctionType == 0 {

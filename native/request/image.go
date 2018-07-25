@@ -1,6 +1,6 @@
 package request
 
-import "github.com/bsm/openrtb"
+import "github.com/ablegao/openrtb"
 
 type ImageTypeID int
 

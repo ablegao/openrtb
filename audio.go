@@ -1,7 +1,6 @@
 package openrtb
 
 import (
-	"encoding/json"
 	"errors"
 )
 
@@ -40,24 +39,6 @@ func (a *Audio) Validate() error {
 	if len(a.Mimes) == 0 {
 		return ErrInvalidAudioNoMimes
 	}
-	return nil
-}
-
-// MarshalJSON custom marshalling with normalization
-func (a *Audio) MarshalJSON() ([]byte, error) {
-	a.normalize()
-	return json.Marshal((*jsonAudio)(a))
-}
-
-// UnmarshalJSON custom unmarshalling with normalization
-func (a *Audio) UnmarshalJSON(data []byte) error {
-	var h jsonAudio
-	if err := json.Unmarshal(data, &h); err != nil {
-		return err
-	}
-
-	*a = (Audio)(h)
-	a.normalize()
 	return nil
 }
 
